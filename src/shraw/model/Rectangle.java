@@ -31,6 +31,12 @@ public final class Rectangle implements Shape {
     }
 
     @Override
+    public void move(final MouseEvent event) {
+        this.x = event.getX();
+        this.y = event.getY();
+    }
+
+    @Override
     public javafx.scene.shape.Shape asJavaFXShape() {
         return new javafx.scene.shape.Rectangle(
             this.x, this.y, this.width, this.height

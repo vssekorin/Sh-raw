@@ -1,5 +1,7 @@
 package shraw.model;
 
+import javafx.scene.input.MouseEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -17,5 +19,12 @@ public final class Shapes {
 
     public void add(final Shape shape) {
         this.shapes.add(shape);
+    }
+
+    public Shape find(final MouseEvent event) {
+        return this.shapes.stream()
+            .filter(Shape.contains(event.getX(), event.getY()))
+            .findFirst()
+            .orElse(null);
     }
 }
