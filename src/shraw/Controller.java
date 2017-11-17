@@ -49,8 +49,4 @@ public final class Controller {
         this.shapes.add(this.shape);
         this.shape = null;
     }
-
-    public void close() {
-        Platform.exit();
-    }
 }
