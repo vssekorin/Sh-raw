@@ -32,8 +32,8 @@ public final class Rectangle implements Shape {
 
     @Override
     public void move(final MouseEvent event) {
-        this.x = event.getX();
-        this.y = event.getY();
+        this.x = event.getX() - this.width / 2;
+        this.y = event.getY() - this.height / 2;
     }
 
     @Override
