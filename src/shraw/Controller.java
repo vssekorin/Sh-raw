@@ -5,6 +5,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import shraw.model.Circle;
 import shraw.model.Rectangle;
 import shraw.model.Shape;
 import shraw.model.Shapes;
@@ -29,6 +30,8 @@ public final class Controller {
         switch ((String) choice.getValue()) {
             case "Rectangle":
                 return new Rectangle(event.getX(), event.getY());
+            case "Circle":
+                return new Circle(event.getX(), event.getY());
             default:
                 throw new IllegalStateException();
         }
