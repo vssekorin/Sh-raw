@@ -80,4 +80,9 @@ public final class Controller {
         this.shapes.add(this.shape);
         this.shape = null;
     }
+
+    public void clear(MouseEvent mouseEvent) {
+        shapes.clear();
+        this.paint.getChildren().clear();
+    }
 }

@@ -27,4 +27,8 @@ public final class Shapes {
             .findFirst()
             .orElse(null);
     }
+
+    public void clear(){
+        shapes.clear();
+    }
 }

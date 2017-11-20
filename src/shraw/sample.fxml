@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shraw.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shraw.Controller">
   <ColorPicker fx:id="colors" layoutX="847.0" layoutY="15.0" />
   <ToggleButton fx:id="toggle" layoutX="528.0" layoutY="15.0" mnemonicParsing="false" text="Move" />
   <Pane fx:id="paint" layoutX="14.0" layoutY="65.0" onMouseDragged="#mDragged" onMousePressed="#mPressed" onMouseReleased="#mReleased" prefHeight="640.0" prefWidth="994.0" style="-fx-border-color: black; -fx-border-width: 3px; -fx-border-radius: 4px" />
-  <ChoiceBox fx:id="choice" layoutX="186.0" layoutY="15.0" prefWidth="157.0" value="Rectangle">
+  <ChoiceBox fx:id="choice" layoutX="175.0" layoutY="15.0" prefWidth="157.0" value="Rectangle">
     <String fx:value="Rectangle" />
     <String fx:value="Circle" />
   </ChoiceBox>
-  <ChoiceBox fx:id="strategy" layoutX="28.0" layoutY="15.0" prefWidth="150.0" value="Simple">
+  <ChoiceBox fx:id="strategy" layoutX="16.0" layoutY="15.0" prefWidth="150.0" value="Simple">
     <String fx:value="Simple" />
     <String fx:value="As Stroke" />
     <String fx:value="With Stroke" />
   </ChoiceBox>
+   <Button ellipsisString="X" layoutX="980.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#clear" prefHeight="25.0" prefWidth="28.0" text="Button" />
 </Pane>
