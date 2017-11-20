@@ -1,10 +1,13 @@
 package shraw.model;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Shape;
+
+import java.util.function.Function;
 
 import static java.lang.Math.pow;
 
-public final class Circle implements Shape {
+public final class Circle implements shraw.model.Shape {
 
     private double pointX;
 
@@ -12,10 +15,14 @@ public final class Circle implements Shape {
 
     private double radius;
 
-    public Circle(final double eventX, final double eventY) {
+    private final Function<Shape, Shape> fill;
+
+    public Circle(final double eventX, final double eventY,
+        final Function<Shape, Shape> func) {
         this.pointX = eventX;
         this.pointY = eventY;
         this.radius = 0;
+        this.fill = func;
     }
     @Override
     public void update(final MouseEvent event) {
@@ -35,8 +42,10 @@ public final class Circle implements Shape {
 
     @Override
     public javafx.scene.shape.Shape asJavaFXShape() {
-        return new javafx.scene.shape.Circle(
-            this.pointX, this.pointY, this.radius
+        return this.fill.apply(
+            new javafx.scene.shape.Circle(
+                this.pointX, this.pointY, this.radius
+            )
         );
     }
 }

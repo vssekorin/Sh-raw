@@ -1,11 +1,14 @@
 package shraw.model;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Shape;
+
+import java.util.function.Function;
 
 /**
  * @author VsSekorin
  */
-public final class Rectangle implements Shape {
+public final class Rectangle implements shraw.model.Shape {
 
     private double firstX;
 
@@ -15,9 +18,13 @@ public final class Rectangle implements Shape {
 
     private double secondY;
 
-    public Rectangle(final double eventX, final double eventY) {
+    private final Function<Shape, Shape> fill;
+
+    public Rectangle(final double eventX, final double eventY,
+        final Function<Shape, Shape> func) {
         this.firstX = this.secondX = eventX;
         this.firstY = this.secondY = eventY;
+        this.fill = func;
     }
 
     @Override
@@ -35,12 +42,14 @@ public final class Rectangle implements Shape {
     }
 
     @Override
-    public javafx.scene.shape.Shape asJavaFXShape() {
-        return new javafx.scene.shape.Rectangle(
-            Math.min(this.firstX, this.secondX),
-            Math.min(this.firstY, this.secondY),
-            Math.abs(this.firstX - this.secondX),
-            Math.abs(this.firstY - this.secondY)
+    public Shape asJavaFXShape() {
+        return this.fill.apply(
+            new javafx.scene.shape.Rectangle(
+                Math.min(this.firstX, this.secondX),
+                Math.min(this.firstY, this.secondY),
+                Math.abs(this.firstX - this.secondX),
+                Math.abs(this.firstY - this.secondY)
+            )
         );
     }
 }
