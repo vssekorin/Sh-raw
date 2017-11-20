@@ -16,6 +16,7 @@
   </ChoiceBox>
   <ChoiceBox fx:id="strategy" layoutX="28.0" layoutY="15.0" prefWidth="150.0" value="Simple">
     <String fx:value="Simple" />
-    <String fx:value="With stroke" />
+    <String fx:value="As Stroke" />
+    <String fx:value="With Stroke" />
   </ChoiceBox>
 </Pane>
