@@ -11,7 +11,7 @@ public interface Shape {
 
     void update(MouseEvent event);
 
-    void move(MouseEvent event);
+    void move(MouseEvent event, double x, double y);
 
     javafx.scene.shape.Shape asJavaFXShape();
 
