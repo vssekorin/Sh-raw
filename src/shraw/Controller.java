@@ -17,10 +17,14 @@ public final class Controller {
 
     private Shapes shapes = new Shapes();
     private Shape shape = null;
+    private double pointX = 0;
+    private double pointY = 0;
 
     public void mPressed(final MouseEvent event) {
         if (this.toggle.isSelected()) {
             this.shape = this.shapes.find(event);
+            pointX = event.getX();
+            pointY = event.getY();
         } else {
             this.shape = this.chooseShape(event);
         }
@@ -39,7 +43,9 @@ public final class Controller {
 
     public void mDragged(final MouseEvent event) {
         if (this.toggle.isSelected()) {
-            this.shape.move(event);
+            this.shape.move(event, pointX, pointY);
+            pointX = event.getX();
+            pointY = event.getY();
         } else {
             this.shape.update(event);
         }

@@ -7,39 +7,38 @@ import javafx.scene.input.MouseEvent;
  */
 public final class Rectangle implements Shape {
 
-    private double x;
+    private double firstX;
 
-    private double y;
+    private double firstY;
 
-    private double height;
+    private double secondX;
 
-    private double width;
+    private double secondY;
 
     public Rectangle(final double eventX, final double eventY) {
-        this.x = eventX;
-        this.y = eventY;
-        this.height = 0;
-        this.width = 0;
+        this.secondX = this.firstX = eventX;
+        this.secondY = this.firstY = eventY;
     }
 
     @Override
     public void update(final MouseEvent event) {
-        this.width = Math.abs(x - event.getX());
-        this.height = Math.abs(y - event.getY());
-        this.x = Math.min(x, event.getX());
-        this.y = Math.min(y, event.getY());
+        secondX = event.getX();
+        secondY = event.getY();
     }
 
     @Override
-    public void move(final MouseEvent event) {
-        this.x = event.getX() - this.width / 2;
-        this.y = event.getY() - this.height / 2;
+    public void move(final MouseEvent event, double x, double y) {
+        System.out.println(x + " " + y + " " + (event.getX() - x) + " " + (event.getY() - y));
+        this.firstX = firstX + event.getX() - x;
+        this.firstY = firstY + event.getY() - y;
+        this.secondX = secondX + event.getX() - x;
+        this.secondY = secondY + event.getY() - y;
     }
 
     @Override
     public javafx.scene.shape.Shape asJavaFXShape() {
         return new javafx.scene.shape.Rectangle(
-            this.x, this.y, this.width, this.height
+                Math.min(firstX, secondX), Math.min(firstY, secondY), Math.abs(firstX - secondX), Math.abs(firstY - secondY)
         );
     }
 }
