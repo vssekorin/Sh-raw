@@ -1,6 +1,7 @@
 package shraw;
 
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -9,10 +10,14 @@ import shraw.model.Rectangle;
 import shraw.model.Shape;
 import shraw.model.Shapes;
 
+import java.util.function.Function;
+
 public final class Controller {
     public Pane paint;
     public ChoiceBox choice;
     public ToggleButton toggle;
+    public ColorPicker colors;
+    public ChoiceBox strategy;
 
     private final Shapes shapes = new Shapes();
     private Shape shape = null;
@@ -32,9 +37,25 @@ public final class Controller {
     private Shape chooseShape(final MouseEvent event) {
         switch ((String) this.choice.getValue()) {
             case "Rectangle":
-                return new Rectangle(event.getX(), event.getY());
+                return new Rectangle(
+                    event.getX(), event.getY(), this.chooseFill()
+                );
             case "Circle":
-                return new Circle(event.getX(), event.getY());
+                return new Circle(
+                    event.getX(), event.getY(), this.chooseFill()
+                );
+            default:
+                throw new IllegalStateException();
+        }
+
+    }
+
+    private Function<javafx.scene.shape.Shape, javafx.scene.shape.Shape> chooseFill() {
+        switch ((String) this.strategy.getValue()) {
+            case "Simple":
+                return FillStrategy.simple().apply(this.colors.getValue());
+            case "With stroke":
+                return FillStrategy.withStroke().apply(this.colors.getValue());
             default:
                 throw new IllegalStateException();
         }
