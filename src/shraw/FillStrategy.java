@@ -21,10 +21,19 @@ public final class FillStrategy {
         };
     }
 
-    public static Function<Paint, Function<Shape, Shape>> withStroke() {
+    public static Function<Paint, Function<Shape, Shape>> asStroke() {
         return paint -> shape -> {
             shape.setFill(Color.TRANSPARENT);
             shape.setStroke(paint);
+            shape.setStrokeWidth(10);
+            return shape;
+        };
+    }
+
+    public static Function<Paint, Function<Shape, Shape>> withStroke() {
+        return paint -> shape -> {
+            shape.setFill(paint);
+            shape.setStroke(Color.BLACK);
             shape.setStrokeWidth(10);
             return shape;
         };

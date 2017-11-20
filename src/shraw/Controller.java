@@ -54,7 +54,9 @@ public final class Controller {
         switch ((String) this.strategy.getValue()) {
             case "Simple":
                 return FillStrategy.simple().apply(this.colors.getValue());
-            case "With stroke":
+            case "As Stroke":
+                return FillStrategy.asStroke().apply(this.colors.getValue());
+            case "With Stroke":
                 return FillStrategy.withStroke().apply(this.colors.getValue());
             default:
                 throw new IllegalStateException();
