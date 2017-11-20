@@ -16,29 +16,31 @@ public final class Rectangle implements Shape {
     private double secondY;
 
     public Rectangle(final double eventX, final double eventY) {
-        this.secondX = this.firstX = eventX;
-        this.secondY = this.firstY = eventY;
+        this.firstX = this.secondX = eventX;
+        this.firstY = this.secondY = eventY;
     }
 
     @Override
     public void update(final MouseEvent event) {
-        secondX = event.getX();
-        secondY = event.getY();
+        this.secondX = event.getX();
+        this.secondY = event.getY();
     }
 
     @Override
-    public void move(final MouseEvent event, double x, double y) {
-        System.out.println(x + " " + y + " " + (event.getX() - x) + " " + (event.getY() - y));
-        this.firstX = firstX + event.getX() - x;
-        this.firstY = firstY + event.getY() - y;
-        this.secondX = secondX + event.getX() - x;
-        this.secondY = secondY + event.getY() - y;
+    public void move(final MouseEvent event, final double x, final double y) {
+        this.firstX += event.getX() - x;
+        this.firstY += event.getY() - y;
+        this.secondX += event.getX() - x;
+        this.secondY += event.getY() - y;
     }
 
     @Override
     public javafx.scene.shape.Shape asJavaFXShape() {
         return new javafx.scene.shape.Rectangle(
-                Math.min(firstX, secondX), Math.min(firstY, secondY), Math.abs(firstX - secondX), Math.abs(firstY - secondY)
+            Math.min(this.firstX, this.secondX),
+            Math.min(this.firstY, this.secondY),
+            Math.abs(this.firstX - this.secondX),
+            Math.abs(this.firstY - this.secondY)
         );
     }
 }
