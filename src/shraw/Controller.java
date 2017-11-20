@@ -1,6 +1,5 @@
 package shraw;
 
-import javafx.application.Platform;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
@@ -15,7 +14,7 @@ public final class Controller {
     public ChoiceBox choice;
     public ToggleButton toggle;
 
-    private Shapes shapes = new Shapes();
+    private final Shapes shapes = new Shapes();
     private Shape shape = null;
     private double pointX = 0;
     private double pointY = 0;
@@ -23,15 +22,15 @@ public final class Controller {
     public void mPressed(final MouseEvent event) {
         if (this.toggle.isSelected()) {
             this.shape = this.shapes.find(event);
-            pointX = event.getX();
-            pointY = event.getY();
+            this.pointX = event.getX();
+            this.pointY = event.getY();
         } else {
             this.shape = this.chooseShape(event);
         }
     }
 
     private Shape chooseShape(final MouseEvent event) {
-        switch ((String) choice.getValue()) {
+        switch ((String) this.choice.getValue()) {
             case "Rectangle":
                 return new Rectangle(event.getX(), event.getY());
             case "Circle":
@@ -43,9 +42,9 @@ public final class Controller {
 
     public void mDragged(final MouseEvent event) {
         if (this.toggle.isSelected()) {
-            this.shape.move(event, pointX, pointY);
-            pointX = event.getX();
-            pointY = event.getY();
+            this.shape.move(event, this.pointX, this.pointY);
+            this.pointX = event.getX();
+            this.pointY = event.getY();
         } else {
             this.shape.update(event);
         }

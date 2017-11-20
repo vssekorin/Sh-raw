@@ -4,7 +4,7 @@ import javafx.scene.input.MouseEvent;
 
 import static java.lang.Math.pow;
 
-public class Circle implements Shape {
+public final class Circle implements Shape {
 
     private double pointX;
 
@@ -18,19 +18,25 @@ public class Circle implements Shape {
         this.radius = 0;
     }
     @Override
-    public void update(MouseEvent event) {
-        radius = pow(pow(pointX - event.getX(), 2) + pow(pointY - event.getY(), 2), 0.5);
+    public void update(final MouseEvent event) {
+        this.radius = pow(
+            pow(this.pointX - event.getX(), 2)
+                + pow(this.pointY - event.getY(), 2),
+            0.5
+        );
     }
 
     @Override
-    public void move(MouseEvent event,double x, double y) {
-        pointX = pointX + event.getX() - x;
-        pointY = pointY + event.getY() - y;
+    public void move(final MouseEvent event, final double x, final double y) {
+        this.pointX = this.pointX + event.getX() - x;
+        this.pointY = this.pointY + event.getY() - y;
 
     }
 
     @Override
     public javafx.scene.shape.Shape asJavaFXShape() {
-        return new javafx.scene.shape.Circle(pointX, pointY, radius);
+        return new javafx.scene.shape.Circle(
+            this.pointX, this.pointY, this.radius
+        );
     }
 }
