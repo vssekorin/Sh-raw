@@ -3,7 +3,10 @@ package shraw;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
+import javafx.util.StringConverter;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -38,4 +41,29 @@ public final class FillStrategy {
             return shape;
         };
     }
+
+    public static final List<Function<Paint, Function<Shape, Shape>>> all =
+        Arrays.asList(simple(), asStroke(), withStroke());
+
+    public static final StringConverter<Function<Paint, Function<Shape, Shape>>> stringConverter =
+        new StringConverter<Function<Paint, Function<Shape, Shape>>>() {
+        @Override
+        public String toString(Function<Paint, Function<Shape, Shape>> func) {
+            if (func.equals(simple())) {
+                return "Simple";
+            }
+            if (func.equals(asStroke())) {
+                return "asStroke";
+            }
+            if (func.equals(withStroke())) {
+                return "withStroke";
+            }
+            throw new IllegalStateException();
+        }
+
+        @Override
+        public Function<Paint, Function<Shape, Shape>> fromString(String s) {
+            throw new UnsupportedOperationException();
+        }
+    };
 }
