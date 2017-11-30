@@ -1,8 +1,10 @@
-package shraw.model.activity;
+package shraw.activity;
 
 public interface Activity {
 
     void undo();
 
     void redo();
+
+    String name();
 }

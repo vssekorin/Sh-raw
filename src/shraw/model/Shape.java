@@ -1,7 +1,5 @@
 package shraw.model;
 
-import javafx.scene.input.MouseEvent;
-
 import java.util.function.Predicate;
 
 /**
@@ -9,13 +7,18 @@ import java.util.function.Predicate;
  */
 public interface Shape {
 
-    void update(MouseEvent event);
+    void update(double abscissa, double ordinate);
 
-    void move(MouseEvent event, double x, double y);
+    void move(double deltaX, double deltaY);
 
     javafx.scene.shape.Shape asJavaFXShape();
 
-    static Predicate<Shape> contains(final double x, final double y) {
-        return shape -> shape.asJavaFXShape().contains(x, y);
+    static Predicate<Shape> contains(final double pointX,
+        final double pointY) {
+        return shape -> shape.asJavaFXShape().contains(pointX, pointY);
+    }
+
+    static Predicate<Shape> isVisible() {
+        return shape -> shape.asJavaFXShape().isVisible();
     }
 }

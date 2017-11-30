@@ -1,14 +1,15 @@
 package shraw;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import shraw.model.Circle;
+import javafx.scene.paint.Paint;
 import shraw.model.Rectangle;
 import shraw.model.Shape;
-import shraw.model.Shapes;
 
 import java.util.function.Function;
 
@@ -17,72 +18,52 @@ public final class Controller {
     public ChoiceBox choice;
     public ToggleButton toggle;
     public ColorPicker colors;
-    public ChoiceBox strategy;
+    public ComboBox<Function<Paint,
+        Function<javafx.scene.shape.Shape, javafx.scene.shape.Shape>>> style;
 
-    private final Shapes shapes = new Shapes();
+    private State state = new State();
     private Shape shape = null;
     private double pointX = 0;
     private double pointY = 0;
+    private Rectangle rect = null;
+
+    @FXML
+    public void initialize() {
+        this.style.getItems().addAll(FillStrategy.all);
+        this.style.setConverter(FillStrategy.stringConverter);
+    }
 
     public void mPressed(final MouseEvent event) {
         if (this.toggle.isSelected()) {
-            this.shape = this.shapes.find(event);
             this.pointX = event.getX();
             this.pointY = event.getY();
+            this.shape = this.state.figure(this.pointX, this.pointY)
+                .orElse(this.shape);
         } else {
-            this.shape = this.chooseShape(event);
-        }
-    }
-
-    private Shape chooseShape(final MouseEvent event) {
-        switch ((String) this.choice.getValue()) {
-            case "Rectangle":
-                return new Rectangle(
-                    event.getX(), event.getY(), this.chooseFill()
-                );
-            case "Circle":
-                return new Circle(
-                    event.getX(), event.getY(), this.chooseFill()
-                );
-            default:
-                throw new IllegalStateException();
-        }
-
-    }
-
-    private Function<javafx.scene.shape.Shape, javafx.scene.shape.Shape> chooseFill() {
-        switch ((String) this.strategy.getValue()) {
-            case "Simple":
-                return FillStrategy.simple().apply(this.colors.getValue());
-            case "As Stroke":
-                return FillStrategy.asStroke().apply(this.colors.getValue());
-            case "With Stroke":
-                return FillStrategy.withStroke().apply(this.colors.getValue());
-            default:
-                throw new IllegalStateException();
+            this.rect = new Rectangle(event.getX(), event.getY());
+            this.paint.getChildren().add(this.rect.asJavaFXShape());
         }
     }
 
     public void mDragged(final MouseEvent event) {
         if (this.toggle.isSelected()) {
-            this.shape.move(event, this.pointX, this.pointY);
+            this.rect.move(pointX - event.getX(), pointY - event.getY());
             this.pointX = event.getX();
             this.pointY = event.getY();
         } else {
-            this.shape.update(event);
+            this.rect.update(event.getX(), event.getY());
         }
-        this.paint.getChildren().clear();
-        this.shapes.get().forEach(this.paint.getChildren()::add);
-        this.paint.getChildren().add(this.shape.asJavaFXShape());
     }
 
     public void mReleased() {
-        this.shapes.add(this.shape);
-        this.shape = null;
+        this.state.addNew(this.rect);
     }
 
-    public void clear(MouseEvent mouseEvent) {
-        shapes.clear();
-        this.paint.getChildren().clear();
+    public void undo() {
+        this.state.undo();
+    }
+
+    public void redo() {
+        this.state.redo();
     }
 }
