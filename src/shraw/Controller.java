@@ -29,7 +29,7 @@ public final class Controller {
 
     @FXML
     public void initialize() {
-        this.style.getItems().addAll(FillStrategy.all);
+        this.style.getItems().addAll(FillStrategy.funcs);
         this.style.setConverter(FillStrategy.stringConverter);
     }
 
@@ -47,7 +47,10 @@ public final class Controller {
 
     public void mDragged(final MouseEvent event) {
         if (this.toggle.isSelected()) {
-            this.rect.move(pointX - event.getX(), pointY - event.getY());
+            this.rect.move(
+                this.pointX - event.getX(),
+                this.pointY - event.getY()
+            );
             this.pointX = event.getX();
             this.pointY = event.getY();
         } else {
