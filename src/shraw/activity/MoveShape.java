@@ -1,22 +1,38 @@
 package shraw.activity;
 
+import shraw.model.Shape;
+
 /**
  * @author VsSekorin
  */
 public final class MoveShape implements Activity {
+
+    private final javafx.scene.shape.Shape shape;
+
+    private final double deltaX;
+
+    private final double deltaY;
+
+    public MoveShape(Shape shape, double deltaX, double deltaY) {
+        this.shape = shape.asJavaFXShape();
+        this.deltaX = deltaX;
+        this.deltaY = deltaY;
+    }
+
     @Override
     public void undo() {
-        //TODO
+        shape.setTranslateX(shape.getTranslateX() - deltaX);
+        shape.setTranslateY(shape.getTranslateY() - deltaY);
     }
 
     @Override
     public void redo() {
-        //TODO
+        shape.setTranslateX(shape.getTranslateX() + deltaX);
+        shape.setTranslateY(shape.getTranslateY() + deltaY);
     }
 
     @Override
     public String name() {
-        //TODO
-        return null;
+        return "Move";
     }
 }

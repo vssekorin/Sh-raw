@@ -2,6 +2,7 @@ package shraw;
 
 import shraw.activity.Activity;
 import shraw.activity.CreateShape;
+import shraw.activity.MoveShape;
 import shraw.model.Shape;
 
 import java.util.ArrayList;
@@ -9,9 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author VsSekorin
- */
 public final class State {
 
     private final List<Shape> shapes;
@@ -33,7 +31,12 @@ public final class State {
 
     public void addNew(final Shape shape) {
         this.shapes.add(shape);
-        this.activities.add(new CreateShape(shape, "create"));
+        this.activities.add(new CreateShape(shape));
+        this.undone.clear();
+    }
+
+    public void addMove(Shape shape, double pointX, double pointY) {
+        this.activities.add(new MoveShape(shape, pointX, pointY));
         this.undone.clear();
     }
 
@@ -46,7 +49,7 @@ public final class State {
     }
 
     private Activity swapAction(final List<Activity> first,
-        final List<Activity> second) {
+                                final List<Activity> second) {
         final int size = first.size();
         final Activity activity = first.get(size - 1);
         second.add(activity);

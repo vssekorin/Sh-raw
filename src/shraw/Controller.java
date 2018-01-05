@@ -1,65 +1,98 @@
 package shraw;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
+import shraw.fill.*;
+import shraw.fill.FillStrategy;
+import shraw.model.Circle;
 import shraw.model.Rectangle;
 import shraw.model.Shape;
+import shraw.model.ShapeStringConverter;
 
-import java.util.function.Function;
+import java.util.Arrays;
+import java.util.List;
 
 public final class Controller {
-    public Pane paint;
-    public ChoiceBox choice;
-    public ToggleButton toggle;
-    public ColorPicker colors;
-    public ComboBox<Function<Paint,
-        Function<javafx.scene.shape.Shape, javafx.scene.shape.Shape>>> style;
+
+    @FXML
+    private ToggleButton toggle;
+    @FXML
+    private Pane paint;
+    @FXML
+    private ColorPicker colors;
+    @FXML
+    private ComboBox<FillStrategy> style;
+    @FXML
+    private ComboBox<Shape> figures;
 
     private State state = new State();
-    private Shape shape = null;
-    private double pointX = 0;
-    private double pointY = 0;
-    private Rectangle rect = null;
+    private Shape shape;
+    private double prevX;
+    private double prevY;
+    private double startY;
+    private double startX;
 
     @FXML
     public void initialize() {
-        this.style.getItems().addAll(FillStrategy.funcs);
-        this.style.setConverter(FillStrategy.stringConverter);
+        final List<FillStrategy> strategies = Arrays.asList(
+            new Stroke(),
+            new AsStroke(),
+            new WithStroke()
+        );
+        this.style.getItems().addAll(strategies);
+        this.style.setConverter(new StrategyStringConverter());
+        this.style.getSelectionModel().selectFirst();
+
+        final List<Shape> figures = Arrays.asList(
+            new Rectangle(0, 0),
+            new Circle(0, 0)
+        );
+        this.figures.getItems().addAll(figures);
+        this.figures.setConverter(new ShapeStringConverter());
+        this.figures.getSelectionModel().selectFirst();
     }
 
     public void mPressed(final MouseEvent event) {
         if (this.toggle.isSelected()) {
-            this.pointX = event.getX();
-            this.pointY = event.getY();
-            this.shape = this.state.figure(this.pointX, this.pointY)
+            this.prevX = event.getX();
+            this.prevY = event.getY();
+            this.startX = event.getX();
+            this.startY = event.getY();
+            this.shape = this.state.figure(prevX, prevY)
                 .orElse(this.shape);
         } else {
-            this.rect = new Rectangle(event.getX(), event.getY());
-            this.paint.getChildren().add(this.rect.asJavaFXShape());
+            this.shape = this.figures.getValue().like(
+                event.getX(),
+                event.getY(),
+                this.style.getValue().withPaint(this.colors.getValue())
+            );
+            this.paint.getChildren().add(this.shape.asJavaFXShape());
         }
     }
 
     public void mDragged(final MouseEvent event) {
         if (this.toggle.isSelected()) {
-            this.rect.move(
-                this.pointX - event.getX(),
-                this.pointY - event.getY()
+            this.shape.move(
+                this.prevX - event.getX(),
+                this.prevY - event.getY()
             );
-            this.pointX = event.getX();
-            this.pointY = event.getY();
+            this.prevX = event.getX();
+            this.prevY = event.getY();
         } else {
-            this.rect.update(event.getX(), event.getY());
+            this.shape.update(event.getX(), event.getY());
         }
     }
 
-    public void mReleased() {
-        this.state.addNew(this.rect);
+    public void mReleased(final MouseEvent event) {
+        if (this.toggle.isSelected()) {
+            this.state.addMove(this.shape, event.getX() - startX, event.getY() - startY);
+        } else {
+            this.state.addNew(this.shape);
+        }
     }
 
     public void undo() {

@@ -1,10 +1,10 @@
 package shraw.activity;
 
-public interface Activity {
+import shraw.Named;
+
+public interface Activity extends Named {
 
     void undo();
 
     void redo();
-
-    String name();
 }

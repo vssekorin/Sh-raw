@@ -2,17 +2,12 @@ package shraw.activity;
 
 import shraw.model.Shape;
 
-/**
- * @author VsSekorin
- */
 public final class CreateShape implements Activity {
 
     private final Shape shape;
-    private final String name;
 
-    public CreateShape(final Shape shp, final String name) {
-        this.shape = shp;
-        this.name = name;
+    public CreateShape(final Shape shape) {
+        this.shape = shape;
     }
 
     @Override
@@ -27,7 +22,7 @@ public final class CreateShape implements Activity {
 
     @Override
     public String name() {
-        return this.name;
+        return "Create";
     }
 
     private void setVisible(final boolean value) {
