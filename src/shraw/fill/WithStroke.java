@@ -4,9 +4,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 
-/**
- * @author VsSekorin
- */
 public final class WithStroke implements FillStrategy {
     private Paint paint;
 
@@ -25,7 +22,7 @@ public final class WithStroke implements FillStrategy {
     }
 
     @Override
-    public String name() {
+    public String text() {
         return "With Stroke";
     }
 }

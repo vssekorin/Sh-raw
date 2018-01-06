@@ -15,9 +15,7 @@
   <ComboBox fx:id="style" layoutX="678.0" layoutY="16.0" prefWidth="150.0" />
   <MenuBar layoutX="14.0" layoutY="14.0">
     <Menu mnemonicParsing="false" text="File">
-      <MenuItem mnemonicParsing="false" text="Open" />
-      <MenuItem mnemonicParsing="false" text="Save" />
-      <MenuItem mnemonicParsing="false" text="Exit" />
+      <MenuItem mnemonicParsing="false" text="Exit" onAction="#exit" />
     </Menu>
     <Menu mnemonicParsing="false" text="Edit">
       <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo" />

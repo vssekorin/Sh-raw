@@ -1,5 +1,6 @@
 package shraw;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -13,6 +14,7 @@ import shraw.model.Shape;
 import shraw.model.ShapeStringConverter;
 
 import java.util.Arrays;
+import java.util.List;
 
 public final class Controller {
 
@@ -23,19 +25,31 @@ public final class Controller {
     @FXML
     private ColorPicker colors;
     @FXML
-    private ComboBox<FillStrategy> style =
-        new ComboBoxFirstDefault<>(
-            Arrays.asList(new Stroke(), new AsStroke(), new WithStroke()),
-            new StrategyStringConverter()
-        );
+    private ComboBox<FillStrategy> style;
     @FXML
-    private ComboBox<Shape> figures =
-        new ComboBoxFirstDefault<>(
-            Arrays.asList(new Rectangle(0,0), new Circle(0,0)),
-            new ShapeStringConverter()
-        );
+    private ComboBox<Shape> figures;
 
     private State state = new State();
+
+    @FXML
+    void initialize() {
+        final List<FillStrategy> strategies = Arrays.asList(
+            new Stroke(),
+            new AsStroke(),
+            new WithStroke()
+        );
+        this.style.getItems().addAll(strategies);
+        this.style.setConverter(new StrategyStringConverter());
+        this.style.getSelectionModel().selectFirst();
+
+        final List<Shape> shapes = Arrays.asList(
+            new Rectangle(0, 0),
+            new Circle(0, 0)
+        );
+        this.figures.getItems().addAll(shapes);
+        this.figures.setConverter(new ShapeStringConverter());
+        this.figures.getSelectionModel().selectFirst();
+    }
 
     public void mPressed(final MouseEvent event) {
         if (this.toggle.isSelected()) {
@@ -73,5 +87,9 @@ public final class Controller {
 
     public void redo() {
         this.state.redo();
+    }
+
+    public void exit() {
+        Platform.exit();
     }
 }

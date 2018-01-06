@@ -5,9 +5,6 @@ import shraw.fill.Stroke;
 
 import static java.lang.Math.pow;
 
-/**
- * @author VsSekorin
- */
 public final class Circle implements Shape {
 
     private final javafx.scene.shape.Circle shape;
@@ -53,7 +50,7 @@ public final class Circle implements Shape {
     }
 
     @Override
-    public String name() {
+    public String text() {
         return "Circle";
     }
 }

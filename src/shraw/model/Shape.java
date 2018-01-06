@@ -5,9 +5,6 @@ import shraw.fill.FillStrategy;
 
 import java.util.function.Predicate;
 
-/**
- * @author VsSekorin
- */
 public interface Shape extends Named {
 
     void update(double abscissa, double ordinate);
@@ -19,7 +16,7 @@ public interface Shape extends Named {
     Shape like(double abscissa, double ordinate, FillStrategy strategy);
 
     static Predicate<Shape> contains(final double pointX,
-        final double pointY) {
+                                     final double pointY) {
         return shape -> shape.asJavaFXShape().contains(pointX, pointY);
     }
 

@@ -4,9 +4,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 
-/**
- * @author VsSekorin
- */
 public final class AsStroke implements FillStrategy {
 
     private Paint paint;
@@ -26,7 +23,7 @@ public final class AsStroke implements FillStrategy {
     }
 
     @Override
-    public String name() {
+    public String text() {
         return "As Stroke";
     }
 }

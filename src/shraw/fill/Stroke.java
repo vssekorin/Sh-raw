@@ -3,9 +3,6 @@ package shraw.fill;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 
-/**
- * @author VsSekorin
- */
 public final class Stroke implements FillStrategy {
 
     private Paint paint;
@@ -23,7 +20,7 @@ public final class Stroke implements FillStrategy {
     }
 
     @Override
-    public String name() {
+    public String text() {
         return "Stroke";
     }
 }

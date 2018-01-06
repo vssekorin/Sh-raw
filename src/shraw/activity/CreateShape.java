@@ -20,11 +20,6 @@ public final class CreateShape implements Activity {
         this.setVisible(true);
     }
 
-    @Override
-    public String name() {
-        return "Create";
-    }
-
     private void setVisible(final boolean value) {
         this.shape.asJavaFXShape().setVisible(value);
     }

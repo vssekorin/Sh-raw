@@ -1,8 +1,6 @@
 package shraw.activity;
 
-import shraw.Named;
-
-public interface Activity extends Named {
+public interface Activity {
 
     void undo();
 

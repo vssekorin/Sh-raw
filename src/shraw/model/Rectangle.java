@@ -3,9 +3,6 @@ package shraw.model;
 import shraw.fill.FillStrategy;
 import shraw.fill.Stroke;
 
-/**
- * @author VsSekorin
- */
 public final class Rectangle implements Shape {
 
     private final javafx.scene.shape.Rectangle shape;
@@ -51,7 +48,7 @@ public final class Rectangle implements Shape {
     }
 
     @Override
-    public String name() {
+    public String text() {
         return "Rectangle";
     }
 }
