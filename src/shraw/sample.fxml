@@ -7,15 +7,20 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shraw.Controller">
-  <ColorPicker fx:id="colors" layoutX="847.0" layoutY="15.0" />
-  <ToggleButton fx:id="toggle" layoutX="369.0" layoutY="16.0" mnemonicParsing="false" text="Move" />
+  <ColorPicker fx:id="colors" layoutX="847.0" layoutY="15.0">
+    <value>
+      <Color />
+    </value>
+  </ColorPicker>
+  <ToggleButton fx:id="toggle" layoutX="314.0" layoutY="15.0" mnemonicParsing="false" text="Move" />
   <Pane fx:id="paint" layoutX="14.0" layoutY="51.0" onMouseDragged="#mDragged" onMousePressed="#mPressed" onMouseReleased="#mReleased" prefHeight="654.0" prefWidth="994.0" style="-fx-border-color: black; -fx-border-width: 3px; -fx-border-radius: 4px" />
   <ComboBox fx:id="style" layoutX="678.0" layoutY="16.0" prefWidth="150.0" />
   <MenuBar layoutX="14.0" layoutY="14.0">
     <Menu mnemonicParsing="false" text="File">
-      <MenuItem mnemonicParsing="false" text="Exit" onAction="#exit" />
+      <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit" />
     </Menu>
     <Menu mnemonicParsing="false" text="Edit">
       <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo" />
@@ -25,5 +30,5 @@
       <MenuItem mnemonicParsing="false" text="About" />
     </Menu>
   </MenuBar>
-   <ComboBox fx:id="figures" layoutX="511.0" layoutY="15.0" prefWidth="150.0" />
+  <ComboBox fx:id="figures" layoutX="511.0" layoutY="15.0" prefWidth="150.0" />
 </Pane>

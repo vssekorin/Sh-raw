@@ -6,20 +6,23 @@ import javafx.scene.shape.Shape;
 
 public final class AsStroke implements FillStrategy {
 
-    private Paint paint;
+    private final Paint color;
+
+    public AsStroke(final Paint paint) {
+        this.color = paint;
+    }
 
     @Override
     public Shape action(final Shape shape) {
         shape.setFill(Color.TRANSPARENT);
-        shape.setStroke(this.paint);
+        shape.setStroke(this.color);
         shape.setStrokeWidth(10);
         return shape;
     }
 
     @Override
     public FillStrategy withPaint(final Paint paint) {
-        this.paint = paint;
-        return this;
+        return new AsStroke(paint);
     }
 
     @Override

@@ -11,7 +11,7 @@ public final class MoveShape implements Activity {
     private final double deltaY;
 
     public MoveShape(Shape shape, double deltaX, double deltaY) {
-        this.shape = shape.asJavaFXShape();
+        this.shape = shape.asShapeFX();
         this.deltaX = deltaX;
         this.deltaY = deltaY;
     }

@@ -21,6 +21,6 @@ public final class CreateShape implements Activity {
     }
 
     private void setVisible(final boolean value) {
-        this.shape.asJavaFXShape().setVisible(value);
+        this.shape.asShapeFX().setVisible(value);
     }
 }

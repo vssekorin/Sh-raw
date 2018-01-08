@@ -5,11 +5,16 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 
 public final class WithStroke implements FillStrategy {
-    private Paint paint;
+
+    private final Paint color;
+
+    public WithStroke(final Paint paint) {
+        this.color = paint;
+    }
 
     @Override
     public Shape action(final Shape shape) {
-        shape.setFill(this.paint);
+        shape.setFill(this.color);
         shape.setStroke(Color.BLACK);
         shape.setStrokeWidth(10);
         return shape;
@@ -17,8 +22,7 @@ public final class WithStroke implements FillStrategy {
 
     @Override
     public FillStrategy withPaint(final Paint paint) {
-        this.paint = paint;
-        return this;
+        return new WithStroke(paint);
     }
 
     @Override

@@ -5,18 +5,21 @@ import javafx.scene.shape.Shape;
 
 public final class Stroke implements FillStrategy {
 
-    private Paint paint;
+    private final Paint color;
+
+    public Stroke(final Paint paint) {
+        this.color = paint;
+    }
 
     @Override
     public Shape action(final Shape shape) {
-        shape.setFill(this.paint);
+        shape.setFill(this.color);
         return shape;
     }
 
     @Override
     public FillStrategy withPaint(final Paint paint) {
-        this.paint = paint;
-        return this;
+        return new Stroke(paint);
     }
 
     @Override

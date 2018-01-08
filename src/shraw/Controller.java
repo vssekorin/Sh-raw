@@ -7,14 +7,18 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import shraw.fill.*;
+import javafx.scene.paint.Color;
+import lombok.val;
+import shraw.fill.AsStroke;
+import shraw.fill.FillStrategy;
+import shraw.fill.Stroke;
+import shraw.fill.WithStroke;
 import shraw.model.Circle;
 import shraw.model.Rectangle;
 import shraw.model.Shape;
-import shraw.model.ShapeStringConverter;
+import shraw.model.StylishShape;
 
 import java.util.Arrays;
-import java.util.List;
 
 public final class Controller {
 
@@ -33,21 +37,16 @@ public final class Controller {
 
     @FXML
     void initialize() {
-        final List<FillStrategy> strategies = Arrays.asList(
-            new Stroke(),
-            new AsStroke(),
-            new WithStroke()
+        this.style.getItems().addAll(
+            Arrays.asList(new Stroke(Color.BLACK), new AsStroke(Color.BLACK), new WithStroke(Color.BLACK))
         );
-        this.style.getItems().addAll(strategies);
-        this.style.setConverter(new StrategyStringConverter());
+        this.style.setConverter(new NamedStringConverter<>());
         this.style.getSelectionModel().selectFirst();
 
-        final List<Shape> shapes = Arrays.asList(
-            new Rectangle(0, 0),
-            new Circle(0, 0)
+        this.figures.getItems().addAll(
+            Arrays.asList(new Rectangle(0, 0), new Circle(0, 0))
         );
-        this.figures.getItems().addAll(shapes);
-        this.figures.setConverter(new ShapeStringConverter());
+        this.figures.setConverter(new NamedStringConverter<>());
         this.figures.getSelectionModel().selectFirst();
     }
 
@@ -55,13 +54,12 @@ public final class Controller {
         if (this.toggle.isSelected()) {
             this.state.startMove(event.getX(), event.getY());
         } else {
-            final Shape newShape = this.figures.getValue().like(
-                event.getX(),
-                event.getY(),
+            val newShape = new StylishShape(
+                this.figures.getValue().with(event.getX(), event.getY()),
                 this.style.getValue().withPaint(this.colors.getValue())
             );
             this.state.setCurrent(newShape);
-            this.paint.getChildren().add(newShape.asJavaFXShape());
+            this.paint.getChildren().add(newShape.asShapeFX());
         }
     }
 
