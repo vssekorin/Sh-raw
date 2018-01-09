@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main.
+ */
 public final class Main extends Application {
 
     @Override
@@ -16,6 +19,11 @@ public final class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Entry point.
+     *
+     * @param args Аргументы командной строки
+     */
     public static void main(String[] args) {
         launch(args);
     }

@@ -20,6 +20,9 @@ import shraw.model.StylishShape;
 
 import java.util.Arrays;
 
+/**
+ * Контроллер.
+ */
 public final class Controller {
 
     @FXML
@@ -33,6 +36,9 @@ public final class Controller {
     @FXML
     private ComboBox<Shape> figures;
 
+    /**
+     * Состояние.
+     */
     private State state = new State();
 
     @FXML
@@ -50,19 +56,29 @@ public final class Controller {
         this.figures.getSelectionModel().selectFirst();
     }
 
+    /**
+     * Кнопка мыши зажата.
+     *
+     * @param event Событие мыши
+     */
     public void mPressed(final MouseEvent event) {
         if (this.toggle.isSelected()) {
             this.state.startMove(event.getX(), event.getY());
         } else {
-            val newShape = new StylishShape(
+            val shape = new StylishShape(
                 this.figures.getValue().with(event.getX(), event.getY()),
                 this.style.getValue().withPaint(this.colors.getValue())
             );
-            this.state.setCurrent(newShape);
-            this.paint.getChildren().add(newShape.asShapeFX());
+            this.state.setCurrent(shape);
+            this.paint.getChildren().add(shape.asShapeFX());
         }
     }
 
+    /**
+     * Перемещение кнопки мыши.
+     *
+     * @param event Событие мыши
+     */
     public void mDragged(final MouseEvent event) {
         if (this.toggle.isSelected()) {
             this.state.dragMove(event.getX(), event.getY());
@@ -71,6 +87,11 @@ public final class Controller {
         }
     }
 
+    /**
+     * Кнопка мыши отжата.
+     *
+     * @param event Событие мыши
+     */
     public void mReleased(final MouseEvent event) {
         if (this.toggle.isSelected()) {
             this.state.addMove(event.getX(), event.getY());
@@ -79,14 +100,23 @@ public final class Controller {
         }
     }
 
+    /**
+     * Отмена действия.
+     */
     public void undo() {
         this.state.undo();
     }
 
+    /**
+     * Возвращения действия.
+     */
     public void redo() {
         this.state.redo();
     }
 
+    /**
+     * Выход.
+     */
     public void exit() {
         Platform.exit();
     }

@@ -4,16 +4,26 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 
+/**
+ * Стратегия расскраски. Залитая фигура с черной границей.
+ */
 public final class WithStroke implements FillStrategy {
 
+    /**
+     * Раскраска.
+     */
     private final Paint color;
 
+    /**
+     * Ctor.
+     * @param paint Раскраска
+     */
     public WithStroke(final Paint paint) {
         this.color = paint;
     }
 
     @Override
-    public Shape action(final Shape shape) {
+    public Shape apply(final Shape shape) {
         shape.setFill(this.color);
         shape.setStroke(Color.BLACK);
         shape.setStrokeWidth(10);

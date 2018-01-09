@@ -4,14 +4,31 @@ import lombok.val;
 
 import static java.lang.Math.pow;
 
+/**
+ * Круг.
+ */
 public final class Circle implements Shape {
 
+    /**
+     * JavaFX круг.
+     */
     private final javafx.scene.shape.Circle shape;
 
+    /**
+     * Ctor.
+     * @param abscissa Координата x
+     * @param ordinate Координата y
+     */
     public Circle(final double abscissa, final double ordinate) {
         this(abscissa, ordinate, 0);
     }
 
+    /**
+     * Ctor.
+     * @param abscissa Координата x
+     * @param ordinate Координата y
+     * @param radius Радиус
+     */
     public Circle(final double abscissa, final double ordinate,
                   final double radius) {
         this.shape = new javafx.scene.shape.Circle(abscissa, ordinate, radius);

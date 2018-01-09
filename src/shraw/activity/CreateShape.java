@@ -2,25 +2,31 @@ package shraw.activity;
 
 import shraw.model.Shape;
 
+/**
+ * Действие создания фигуры.
+ */
 public final class CreateShape implements Activity {
 
-    private final Shape shape;
+    /**
+     * JavaFX фигура.
+     */
+    private final javafx.scene.shape.Shape shape;
 
+    /**
+     * Ctor.
+     * @param shape Фигура
+     */
     public CreateShape(final Shape shape) {
-        this.shape = shape;
+        this.shape = shape.asShapeFX();
     }
 
     @Override
     public void undo() {
-        this.setVisible(false);
+        this.shape.setVisible(false);
     }
 
     @Override
     public void redo() {
-        this.setVisible(true);
-    }
-
-    private void setVisible(final boolean value) {
-        this.shape.asShapeFX().setVisible(value);
+        this.shape.setVisible(true);
     }
 }

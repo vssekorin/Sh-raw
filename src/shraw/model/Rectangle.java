@@ -1,13 +1,31 @@
 package shraw.model;
 
+/**
+ * Прямоугольник.
+ */
 public final class Rectangle implements Shape {
 
+    /**
+     * JavaFX прямоугольник.
+     */
     private final javafx.scene.shape.Rectangle shape;
 
+    /**
+     * Ctor.
+     * @param abscissa Координата x
+     * @param ordinate Координата y
+     */
     public Rectangle(final double abscissa, final double ordinate) {
         this(abscissa, ordinate, 0, 0);
     }
 
+    /**
+     * Ctor.
+     * @param abscissa Координата x
+     * @param ordinate Координата y
+     * @param width Ширина
+     * @param height Высота
+     */
     public Rectangle(final double abscissa, final double ordinate,
                      final int width, final int height) {
         this.shape = new javafx.scene.shape.Rectangle(
