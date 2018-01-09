@@ -8,7 +8,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import lombok.val;
 import shraw.fill.AsStroke;
 import shraw.fill.FillStrategy;
 import shraw.fill.Stroke;
@@ -65,7 +64,7 @@ public final class Controller {
         if (this.toggle.isSelected()) {
             this.state.startMove(event.getX(), event.getY());
         } else {
-            val shape = new StylishShape(
+            final Shape shape = new StylishShape(
                 this.figures.getValue().with(event.getX(), event.getY()),
                 this.style.getValue().withPaint(this.colors.getValue())
             );

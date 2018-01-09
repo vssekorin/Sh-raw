@@ -1,7 +1,5 @@
 package shraw.model;
 
-import lombok.val;
-
 import static java.lang.Math.pow;
 
 /**
@@ -36,8 +34,8 @@ public final class Circle implements Shape {
 
     @Override
     public void update(final double abscissa, final double ordinate) {
-        val deltaX = this.shape.getCenterX() - abscissa;
-        val deltaY = this.shape.getCenterY() - ordinate;
+        final double deltaX = this.shape.getCenterX() - abscissa;
+        final double deltaY = this.shape.getCenterY() - ordinate;
         this.shape.setRadius(pow(pow(deltaX, 2) + pow(deltaY, 2), 0.5));
     }
 

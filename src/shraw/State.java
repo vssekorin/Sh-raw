@@ -1,6 +1,5 @@
 package shraw;
 
-import lombok.Setter;
 import shraw.activity.Activities;
 import shraw.activity.CreateShape;
 import shraw.activity.MoveShape;
@@ -28,7 +27,6 @@ public final class State {
     /**
      * Текущая фигура.
      */
-    @Setter
     private Shape current;
 
     /**
@@ -129,5 +127,14 @@ public final class State {
             .filter(Shape.isVisible())
             .filter(Shape.contains(pointX, pointY))
             .findFirst();
+    }
+
+    /**
+     * Устанавливает текущую фигуру.
+     *
+     * @param shape Фигура
+     */
+    public void setCurrent(final Shape shape) {
+        this.current = shape;
     }
 }
